@@ -1,5 +1,5 @@
 ﻿@page "/arrange"
-@attribute [StreamRendering]
+@rendermode InteractiveServer
 
 <PageTitle>Arrange</PageTitle>
 
@@ -7,7 +7,8 @@
 
 <p>残り点数を入力してください（60～170、または50）:</p>
 <input type="number" class="form-control d-inline-block" style="width:120px;" min="50" max="170" @bind="InputScore" />
-<button class="btn btn-primary ms-2" type="button" @onclick="@(e => ShowArrange())">表示</button>
+<button class="btn btn-primary" @onclick="ShowArrange">表示</button>
+@* <button class="btn btn-primary" @onclick="IncrementCount">Click me</button> *@
 
 <p class="text-secondary">現在の入力値: @(InputScore?.ToString() ?? "未入力")</p>
 
