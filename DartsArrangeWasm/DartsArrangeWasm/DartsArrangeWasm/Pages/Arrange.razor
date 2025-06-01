@@ -1,0 +1,193 @@
+﻿@page "/arrange"
+
+<PageTitle>Arrange</PageTitle>
+
+<h1>Arrange</h1>
+
+<p>残り点数を入力してください（60～170、または50）:</p>
+<input type="number" class="form-control d-inline-block" style="width:120px;" min="50" max="170" @bind="InputScore" />
+<button class="btn btn-primary" @onclick="ShowArrange">表示</button>
+@* <button class="btn btn-primary" @onclick="IncrementCount">Click me</button> *@
+
+<p class="text-secondary">現在の入力値: @(InputScore?.ToString() ?? "未入力")</p>
+
+@if (SelectedArrange != null)
+{
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>残り点数</th>
+                <th>1投目</th>
+                <th>2投目</th>
+                <th>フィニッシュ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@SelectedArrange.Score</td>
+                <td>@SelectedArrange.First</td>
+                <td>@SelectedArrange.Second</td>
+                <td>@SelectedArrange.Finish</td>
+            </tr>
+        </tbody>
+    </table>
+}
+else if (IsSearched)
+{
+    <div class="alert alert-warning mt-3">その点数でのアレンジはありません。</div>
+}
+
+@code {
+    private int? InputScore { get; set; } = 170;
+    private DartsArrange? SelectedArrange { get; set; }
+    private bool IsSearched { get; set; } = false;
+
+    private void ShowArrange()
+    {
+        if (InputScore == null)
+        {
+            SelectedArrange = null;
+            IsSearched = false;
+            return;
+        }
+
+        if ((InputScore < 60 && InputScore != 50) || InputScore > 170)
+        {
+            SelectedArrange = null;
+        }
+        else
+        {
+            SelectedArrange = GetMasterOutArrange(InputScore.Value);
+        }
+        IsSearched = true;
+    }
+
+    private DartsArrange? GetMasterOutArrange(int score)
+    {
+        return score switch
+        {
+            170 => new DartsArrange(score, "T20", "T20", "Bull"),
+            167 => new DartsArrange(score, "T20", "T19", "Bull"),
+            164 => new DartsArrange(score, "T20", "T18", "Bull"),
+            161 => new DartsArrange(score, "T20", "T17", "Bull"),
+            160 => new DartsArrange(score, "T20", "T20", "D20"),
+            158 => new DartsArrange(score, "T20", "T20", "D19"),
+            157 => new DartsArrange(score, "T20", "T19", "D20"),
+            156 => new DartsArrange(score, "T20", "T20", "D18"),
+            155 => new DartsArrange(score, "T20", "T19", "D19"),
+            154 => new DartsArrange(score, "T20", "T18", "D20"),
+            153 => new DartsArrange(score, "T20", "T19", "D18"),
+            152 => new DartsArrange(score, "T20", "T20", "D16"),
+            151 => new DartsArrange(score, "T20", "T17", "D20"),
+            150 => new DartsArrange(score, "T20", "T18", "D18"),
+            149 => new DartsArrange(score, "T20", "T19", "D16"),
+            148 => new DartsArrange(score, "T20", "T16", "D20"),
+            147 => new DartsArrange(score, "T20", "T17", "D18"),
+            146 => new DartsArrange(score, "T20", "T18", "D16"),
+            145 => new DartsArrange(score, "T20", "T15", "D20"),
+            144 => new DartsArrange(score, "T20", "T20", "D12"),
+            143 => new DartsArrange(score, "T20", "T17", "D16"),
+            142 => new DartsArrange(score, "T20", "T14", "D20"),
+            141 => new DartsArrange(score, "T20", "T19", "D12"),
+            140 => new DartsArrange(score, "T20", "T16", "D16"),
+            139 => new DartsArrange(score, "T20", "T13", "D20"),
+            138 => new DartsArrange(score, "T20", "T18", "D12"),
+            137 => new DartsArrange(score, "T20", "T15", "D16"),
+            136 => new DartsArrange(score, "T20", "T20", "D8"),
+            135 => new DartsArrange(score, "T20", "T17", "D12"),
+            134 => new DartsArrange(score, "T20", "T14", "D16"),
+            133 => new DartsArrange(score, "T20", "T19", "D8"),
+            132 => new DartsArrange(score, "T20", "T16", "D12"),
+            131 => new DartsArrange(score, "T20", "T13", "D16"),
+            130 => new DartsArrange(score, "T20", "T18", "D8"),
+            129 => new DartsArrange(score, "T19", "T16", "D12"),
+            128 => new DartsArrange(score, "T18", "T14", "D16"),
+            127 => new DartsArrange(score, "T20", "T17", "D8"),
+            126 => new DartsArrange(score, "T19", "T19", "D6"),
+            125 => new DartsArrange(score, "25", "T20", "Bull"),
+            124 => new DartsArrange(score, "T20", "T16", "D8"),
+            123 => new DartsArrange(score, "T19", "T16", "D9"),
+            122 => new DartsArrange(score, "T18", "T20", "D4"),
+            121 => new DartsArrange(score, "T20", "T11", "Bull"),
+            120 => new DartsArrange(score, "T20", "20", "D20"),
+            119 => new DartsArrange(score, "T19", "T10", "Bull"),
+            118 => new DartsArrange(score, "T20", "18", "D20"),
+            117 => new DartsArrange(score, "T20", "17", "D20"),
+            116 => new DartsArrange(score, "T20", "16", "D20"),
+            115 => new DartsArrange(score, "T20", "15", "D20"),
+            114 => new DartsArrange(score, "T20", "14", "D20"),
+            113 => new DartsArrange(score, "T20", "13", "D20"),
+            112 => new DartsArrange(score, "T20", "12", "D20"),
+            111 => new DartsArrange(score, "T20", "11", "D20"),
+            110 => new DartsArrange(score, "T20", "10", "D20"),
+            109 => new DartsArrange(score, "T20", "9", "D20"),
+            108 => new DartsArrange(score, "T20", "8", "D20"),
+            107 => new DartsArrange(score, "T19", "10", "D20"),
+            106 => new DartsArrange(score, "T20", "6", "D20"),
+            105 => new DartsArrange(score, "T19", "8", "D20"),
+            104 => new DartsArrange(score, "T18", "10", "D20"),
+            103 => new DartsArrange(score, "T17", "12", "D20"),
+            102 => new DartsArrange(score, "T20", "10", "D16"),
+            101 => new DartsArrange(score, "T17", "10", "D20"),
+            100 => new DartsArrange(score, "T20", "D20", "-"),
+            99 => new DartsArrange(score, "T19", "10", "D16"),
+            98 => new DartsArrange(score, "T20", "D19", "-"),
+            97 => new DartsArrange(score, "T19", "D20", "-"),
+            96 => new DartsArrange(score, "T20", "D18", "-"),
+            95 => new DartsArrange(score, "T19", "D19", "-"),
+            94 => new DartsArrange(score, "T18", "D20", "-"),
+            93 => new DartsArrange(score, "T19", "D18", "-"),
+            92 => new DartsArrange(score, "T20", "D16", "-"),
+            91 => new DartsArrange(score, "T17", "D20", "-"),
+            90 => new DartsArrange(score, "Bull", "D20", "-"),
+            89 => new DartsArrange(score, "T19", "D16", "-"),
+            88 => new DartsArrange(score, "T16", "D20", "-"),
+            87 => new DartsArrange(score, "T17", "D18", "-"),
+            86 => new DartsArrange(score, "T18", "D16", "-"),
+            85 => new DartsArrange(score, "T15", "D20", "-"),
+            84 => new DartsArrange(score, "T20", "D12", "-"),
+            83 => new DartsArrange(score, "T17", "D16", "-"),
+            82 => new DartsArrange(score, "Bull", "D16", "-"),
+            81 => new DartsArrange(score, "T19", "D12", "-"),
+            80 => new DartsArrange(score, "T20", "D10", "-"),
+            79 => new DartsArrange(score, "T13", "D20", "-"),
+            78 => new DartsArrange(score, "T18", "D12", "-"),
+            77 => new DartsArrange(score, "T19", "D10", "-"),
+            76 => new DartsArrange(score, "T20", "D8", "-"),
+            75 => new DartsArrange(score, "T17", "D12", "-"),
+            74 => new DartsArrange(score, "T14", "D16", "-"),
+            73 => new DartsArrange(score, "T19", "D8", "-"),
+            72 => new DartsArrange(score, "T16", "D12", "-"),
+            71 => new DartsArrange(score, "T13", "D16", "-"),
+            70 => new DartsArrange(score, "T18", "D8", "-"),
+            69 => new DartsArrange(score, "T19", "D6", "-"),
+            68 => new DartsArrange(score, "T20", "D4", "-"),
+            67 => new DartsArrange(score, "T17", "D8", "-"),
+            66 => new DartsArrange(score, "T10", "D18", "-"),
+            65 => new DartsArrange(score, "25", "D20", "-"),
+            64 => new DartsArrange(score, "T16", "D8", "-"),
+            63 => new DartsArrange(score, "T13", "D12", "-"),
+            62 => new DartsArrange(score, "T10", "D16", "-"),
+            61 => new DartsArrange(score, "T15", "D8", "-"),
+            60 => new DartsArrange(score, "20", "D20", "-"),
+            50 => new DartsArrange(score, "Bull", "-", "-"),
+            _ => null
+        };
+    }
+
+    private class DartsArrange
+    {
+        public int Score { get; }
+        public string First { get; }
+        public string Second { get; }
+        public string Finish { get; }
+
+        public DartsArrange(int score, string first, string second, string finish)
+        {
+            Score = score;
+            First = first;
+            Second = second;
+            Finish = finish;
+        }
+    }
+}
